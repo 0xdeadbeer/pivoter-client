@@ -18,9 +18,15 @@
     <ClCompile Include="Pivoter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="connections_pivoter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connections_pivoter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
