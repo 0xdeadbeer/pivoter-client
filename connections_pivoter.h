@@ -21,6 +21,13 @@ public:
 	CURL* curl; 
 
 	ConnectionsPivoter(std::string url); 
+	ConnectionsPivoter();
+
+	/// <summary>Update the url value</summary>
+	/// <param name='new_url:'>New url value</param>
+	void set_url(std::string new_url) {
+		this->url = new_url; 
+	};
 
 	/// <summary>Send an alive signal to the mother server</summary>
 	/// <returns>TRUE if successful</returns>

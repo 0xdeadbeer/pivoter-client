@@ -35,6 +35,11 @@ ConnectionsPivoter::ConnectionsPivoter(std::string url) {
 	this->curl = curl_easy_init();
 }
 
+ConnectionsPivoter::ConnectionsPivoter() {
+	curl_global_init(CURL_GLOBAL_ALL);
+	this->curl = curl_easy_init(); 
+}
+
 BOOL ConnectionsPivoter::send_alive_signal() {
 	
 }
