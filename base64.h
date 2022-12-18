@@ -29,7 +29,6 @@
 
 class Base64 {
  public:
-
   static std::string encode(const std::string data) {
     static constexpr char s_encoding_table[] = {
       'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',

