@@ -392,10 +392,16 @@ FodyWeavers.xsd
 *.msi
 *.msix
 *.msm
-*.msp
+*.mspc
 
 # JetBrains Rider
 *.sln.iml
 
 # tmp 
 enc_temp_folder
+
+# Visual Studio project files 
+*.sln
+*.vcxproj
+*.vcxproj*
+
