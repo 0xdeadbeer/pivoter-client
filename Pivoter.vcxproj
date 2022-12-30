@@ -94,12 +94,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\unknown\source\repos\pivoter-client\curl\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>"C:\Users\unknown\source\repos\pivoter-client\curl\lib\libcurl_a.lib"</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -108,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Unknown\Downloads\curl-7.86.0\curl-7.86.0\builds\libcurl-vc16-x64-debug-static-ipv6-sspi-schannel\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\unknown\Downloads\curl-7.87.0-win64-mingw\curl-7.87.0-win64-mingw\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,14 +127,14 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Users\Unknown\Downloads\curl-7.86.0\curl-7.86.0\builds\libcurl-vc16-x64-release-static-ipv6-sspi-schannel\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\unknown\source\repos\pivoter-client\curl\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>C:\Users\Unknown\Downloads\curl-7.86.0\curl-7.86.0\builds\libcurl-vc16-x64-release-static-ipv6-sspi-schannel\lib\libcurl_a.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>"C:\Users\unknown\source\repos\pivoter-client\curl\lib\libcurl_a.lib"</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

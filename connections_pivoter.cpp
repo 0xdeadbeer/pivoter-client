@@ -42,7 +42,7 @@ ConnectionsPivoter::ConnectionsPivoter() {
 }
 
 BOOL ConnectionsPivoter::send_alive_signal() {
-	
+	return TRUE; 
 }
 
 /*static const BYTE plaintext[] = {
