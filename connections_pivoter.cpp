@@ -1,7 +1,5 @@
 #define CURL_STATICLIB
 
-#include "connections_pivoter.h"
-#include <stdio.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -11,6 +9,7 @@
 #include <Windows.h>
 #include <bcrypt.h>
 #include <curl/curl.h>
+#include "connections_pivoter.h"
 #include "base64.h"
 
 #pragma comment (lib, "Normaliz.lib")
@@ -20,7 +19,6 @@
 #pragma comment (lib, "advapi32.lib")
 #pragma comment (lib, "User32.lib")
 
-// temp function 
 std::string join(std::vector<std::string> v) {
 	std::stringstream ss; 
 	std::copy(v.begin(), v.end(),
@@ -45,12 +43,6 @@ ConnectionsPivoter::ConnectionsPivoter() {
 BOOL ConnectionsPivoter::send_alive_signal() {
 	return TRUE; 
 }
-
-/*static const BYTE plaintext[] = { 
-	0x6d, 0x69, 0x63, 0x72, 0x6f, 0x73, 0x6f, 0x66, 
-	0x74, 0x20, 0x64, 0x6f, 0x63, 0x73, 0x20, 0x61, 
-	0x72, 0x65, 0x20, 0x73, 0x68, 0x69, 0x74, 0x20
-};*/
 
 static const BYTE iv[] = {
 	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 

