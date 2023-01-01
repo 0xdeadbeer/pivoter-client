@@ -55,6 +55,7 @@ static const BYTE key[] = {
 }; 
 
 BOOL ConnectionsPivoter::send_codes(std::vector<std::string> codes) {
+
 	if (!this->curl)
 		return false;
 

