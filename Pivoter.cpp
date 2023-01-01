@@ -94,6 +94,8 @@ int main(int argc, char** argv) {
 	if (DEBUG)
 		for (int i = 0; i < argc; i++)
 			std::cout << "Argument " << i << " value: " << argv[i] << std::endl;
+	else 
+		ShowWindow(GetConsoleWindow(), SW_HIDE);
 
 	mother_server_pv.url = argv[1];
 	mother_server_pv.allowed_country = argv[2];
